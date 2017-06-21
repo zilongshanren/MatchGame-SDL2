@@ -31,6 +31,19 @@
 		29A2DCF51C8DBAE40050DEC9 /* Chain.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29A2DCF31C8DBAE40050DEC9 /* Chain.cpp */; };
 		29A6DFED1C87FD3F00EE672F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29A6DFEC1C87FD3F00EE672F /* main.cpp */; };
 		29A6DFFB1C87FE6300EE672F /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A6DFFA1C87FE6300EE672F /* SDL2.framework */; };
+		29F434101EFA59EE00A1417C /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A6DFFA1C87FE6300EE672F /* SDL2.framework */; };
+		29F434111EFA59EE00A1417C /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A2DCB81C89B9220050DEC9 /* SDL2_ttf.framework */; };
+		29F434121EFA59EE00A1417C /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A2DCAA1C89B12B0050DEC9 /* SDL2_image.framework */; };
+		29F434141EFA59EE00A1417C /* Green.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A2DCAE1C89B17F0050DEC9 /* Green.png */; };
+		29F434151EFA59EE00A1417C /* BackGround.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 29A2DCAC1C89B17F0050DEC9 /* BackGround.jpg */; };
+		29F434161EFA59EE00A1417C /* Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A2DCAD1C89B17F0050DEC9 /* Blue.png */; };
+		29F434171EFA59EE00A1417C /* Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A2DCB01C89B17F0050DEC9 /* Red.png */; };
+		29F434181EFA59EE00A1417C /* Purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A2DCAF1C89B17F0050DEC9 /* Purple.png */; };
+		29F434191EFA59EE00A1417C /* Yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 29A2DCB11C89B17F0050DEC9 /* Yellow.png */; };
+		29F4341A1EFA59EE00A1417C /* arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29A2DCBA1C89BA040050DEC9 /* arial.ttf */; };
+		29F434211EFA5A1900A1417C /* IMGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29F434201EFA5A1900A1417C /* IMGUI.cpp */; };
+		29F434221EFA5A7200A1417C /* Utils.h in Sources */ = {isa = PBXBuildFile; fileRef = 29A2DCBC1C8A742D0050DEC9 /* Utils.h */; };
+		29F434231EFA5A7700A1417C /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29A2DCC31C8A7F600050DEC9 /* Utils.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +90,9 @@
 		29A6DFEC1C87FD3F00EE672F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		29A6DFF31C87FD3F00EE672F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29A6DFFA1C87FE6300EE672F /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SDL2.framework; sourceTree = "<group>"; };
+		29F4341E1EFA59EE00A1417C /* IMGUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IMGUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		29F4341F1EFA59EF00A1417C /* FollowMatchKing copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FollowMatchKing copy-Info.plist"; path = "/Users/guanghui/Github/MatchGame-SDL2/FollowMatchKing copy-Info.plist"; sourceTree = "<absolute>"; };
+		29F434201EFA5A1900A1417C /* IMGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IMGUI.cpp; path = FollowMatchKing/IMGUI.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +103,16 @@
 				29A6DFFB1C87FE6300EE672F /* SDL2.framework in Frameworks */,
 				29A2DCB91C89B9220050DEC9 /* SDL2_ttf.framework in Frameworks */,
 				29A2DCAB1C89B12B0050DEC9 /* SDL2_image.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29F4340F1EFA59EE00A1417C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29F434101EFA59EE00A1417C /* SDL2.framework in Frameworks */,
+				29F434111EFA59EE00A1417C /* SDL2_ttf.framework in Frameworks */,
+				29F434121EFA59EE00A1417C /* SDL2_image.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,9 +186,11 @@
 		29A6DFDC1C87FD3E00EE672F = {
 			isa = PBXGroup;
 			children = (
+				29F434241EFA5A7C00A1417C /* IMGUI */,
 				29A2DCC01C8A75860050DEC9 /* frameworks */,
 				29A6DFE71C87FD3F00EE672F /* FollowMatchKing */,
 				29A6DFE61C87FD3F00EE672F /* Products */,
+				29F4341F1EFA59EF00A1417C /* FollowMatchKing copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -170,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				29A6DFE51C87FD3F00EE672F /* FollowMatchKing.app */,
+				29F4341E1EFA59EE00A1417C /* IMGUI.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -230,6 +259,14 @@
 			path = res;
 			sourceTree = "<group>";
 		};
+		29F434241EFA5A7C00A1417C /* IMGUI */ = {
+			isa = PBXGroup;
+			children = (
+				29F434201EFA5A1900A1417C /* IMGUI.cpp */,
+			);
+			name = IMGUI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -248,6 +285,23 @@
 			name = FollowMatchKing;
 			productName = FollowMatchKing;
 			productReference = 29A6DFE51C87FD3F00EE672F /* FollowMatchKing.app */;
+			productType = "com.apple.product-type.application";
+		};
+		29F433FF1EFA59EE00A1417C /* IMGUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29F4341B1EFA59EE00A1417C /* Build configuration list for PBXNativeTarget "IMGUI" */;
+			buildPhases = (
+				29F434001EFA59EE00A1417C /* Sources */,
+				29F4340F1EFA59EE00A1417C /* Frameworks */,
+				29F434131EFA59EE00A1417C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IMGUI;
+			productName = FollowMatchKing;
+			productReference = 29F4341E1EFA59EE00A1417C /* IMGUI.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -278,6 +332,7 @@
 			projectRoot = "";
 			targets = (
 				29A6DFE41C87FD3E00EE672F /* FollowMatchKing */,
+				29F433FF1EFA59EE00A1417C /* IMGUI */,
 			);
 		};
 /* End PBXProject section */
@@ -294,6 +349,20 @@
 				29A2DCB51C89B17F0050DEC9 /* Purple.png in Resources */,
 				29A2DCB71C89B17F0050DEC9 /* Yellow.png in Resources */,
 				29A2DCBB1C89BA040050DEC9 /* arial.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29F434131EFA59EE00A1417C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29F434141EFA59EE00A1417C /* Green.png in Resources */,
+				29F434151EFA59EE00A1417C /* BackGround.jpg in Resources */,
+				29F434161EFA59EE00A1417C /* Blue.png in Resources */,
+				29F434171EFA59EE00A1417C /* Red.png in Resources */,
+				29F434181EFA59EE00A1417C /* Purple.png in Resources */,
+				29F434191EFA59EE00A1417C /* Yellow.png in Resources */,
+				29F4341A1EFA59EE00A1417C /* arial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +387,16 @@
 				29A2DCD41C8AD9D70050DEC9 /* GameObject.cpp in Sources */,
 				29A2DCE31C8BCC7F0050DEC9 /* Action.cpp in Sources */,
 				29A2DCE01C8B10990050DEC9 /* Tile.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29F434001EFA59EE00A1417C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29F434231EFA5A7700A1417C /* Utils.cpp in Sources */,
+				29F434221EFA5A7200A1417C /* Utils.h in Sources */,
+				29F434211EFA5A1900A1417C /* IMGUI.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +516,40 @@
 			};
 			name = Release;
 		};
+		29F4341C1EFA59EE00A1417C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "FollowMatchKing copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks $(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zilongshanren.FollowMatchKing;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/FollowMatchKing/src/utils $(SRCROOT)/FollowMatchKing/src";
+			};
+			name = Debug;
+		};
+		29F4341D1EFA59EE00A1417C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "FollowMatchKing copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks $(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zilongshanren.FollowMatchKing;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/FollowMatchKing/src/utils $(SRCROOT)/FollowMatchKing/src";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -454,6 +567,15 @@
 			buildConfigurations = (
 				29A6DFF71C87FD3F00EE672F /* Debug */,
 				29A6DFF81C87FD3F00EE672F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29F4341B1EFA59EE00A1417C /* Build configuration list for PBXNativeTarget "IMGUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29F4341C1EFA59EE00A1417C /* Debug */,
+				29F4341D1EFA59EE00A1417C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
