@@ -36,12 +36,56 @@ struct UIState
     
     int hotitem;
     int activeitem;
+    
+    int kbditem;
+    int keyentered;
+    int keymod;
+    int keychar;
+    
+    int lastwidget;
 }
-uistate = {0,0,0,0,0};
+uistate = {0,0,0,0,0,0,0,0,0,0};
 
 
 SDL_Renderer* _renderer;
 SDL_Window* _window;
+// Font surface
+SDL_Texture *gFont;
+
+
+// Draw a single character.
+// Characters are on top of each other in the font image, in ASCII order,
+// so all this routine does is just set the coordinates for the character
+// and use SDL to blit out.
+void drawchar(char ch, int x, int y)
+{
+    SDL_Rect src, dst;
+    src.w = 14;
+    src.h = 24;
+    src.x = 0;
+    src.y = (ch - 32) * 24;
+    dst.w = 14;
+    dst.h = 24;
+    dst.x = x;
+    dst.y = y;
+    
+    SDL_RenderCopy(_renderer, gFont, &src, &dst);
+}
+
+// Draw the string. Characters are fixed width, so this is also
+// deadly simple.
+void drawstring(const char * string, int x, int y)
+{
+    while (*string)
+    {
+        drawchar(*string,x,y);
+        x += 14;
+        string++;
+    }
+}
+
+
+
 
 void drawrect( int x, int y, int w, int h, Uint32 color)
 {
@@ -52,11 +96,10 @@ void drawrect( int x, int y, int w, int h, Uint32 color)
     rect.h = h;
     
     // Set render color to blue ( rect will be rendered in this color )
-    Uint8 r = (color & 0xff000000) >> 24;
-    Uint8 g = (color & 0x00ff0000) >> 16;
-    Uint8 b = (color & 0x0000ff00) >> 8;
-    Uint8 a = (color & 0x000000ff);
-    SDL_SetRenderDrawColor( _renderer, r, g, b, a );
+    Uint8 r = (color & 0xff0000) >> 16;
+    Uint8 g = (color & 0x00ff00) >> 8;
+    Uint8 b = (color & 0x0000ff);
+    SDL_SetRenderDrawColor( _renderer, r, g, b, 255);
     
     // Render rect
     SDL_RenderFillRect( _renderer, &rect );
@@ -84,6 +127,14 @@ int button(int id, int x, int y)
             uistate.activeitem = id;
     }
     
+    // If no widget has keyboard focus, take it
+    if (uistate.kbditem == 0)
+        uistate.kbditem = id;
+    
+    // If we have keyboard focus, show it
+    if (uistate.kbditem == id)
+        drawrect(x-6, y-6, 84, 68, 0xff0000);
+    
     // Render button
     drawrect(x+8, y+8, 64, 48, 0);
     if (uistate.hotitem == id)
@@ -104,6 +155,32 @@ int button(int id, int x, int y)
         // button is not hot, but it may be active
         drawrect(x, y, 64, 48, 0xaaaaaa);
     }
+    
+    // If we have keyboard focus, we'll need to process the keys
+    if (uistate.kbditem == id)
+    {
+        switch (uistate.keyentered)
+        {
+            case SDLK_TAB:
+                // If tab is pressed, lose keyboard focus.
+                // Next widget will grab the focus.
+                uistate.kbditem = 0;
+                // If shift was also pressed, we want to move focus
+                // to the previous widget instead.
+                if (uistate.keymod & KMOD_SHIFT)
+                    uistate.kbditem = uistate.lastwidget;
+                // Also clear the key so that next widget
+                // won't process it
+                uistate.keyentered = 0;
+                break;
+            case SDLK_RETURN:
+                // Had keyboard focus, received return,
+                // so we'll act as if we were clicked.
+                return 1;
+        }
+    }
+    
+    uistate.lastwidget = id;
     
     // If button is hot and active, but mouse button is not
     // down, the user must have clicked the button.
@@ -133,6 +210,13 @@ void imgui_finish()
         if (uistate.activeitem == 0)
             uistate.activeitem = -1;
     }
+    
+    // If no widget grabbed tab, clear focus
+    if (uistate.keyentered == SDLK_TAB)
+        uistate.kbditem = 0;
+    // Clear the entered key
+    uistate.keyentered = 0;
+    uistate.keychar = 0;
 }
 
 // Simple scroll bar IMGUI widget
@@ -149,6 +233,14 @@ int slider(int id, int x, int y, int max, int &value)
             uistate.activeitem = id;
     }
     
+    // If no widget has keyboard focus, take it
+    if (uistate.kbditem == 0)
+        uistate.kbditem = id;
+    
+    // If we have keyboard focus, show it
+    if (uistate.kbditem == id)
+        drawrect(x-4, y-4, 40, 280, 0xff0000);
+    
     // Render the scrollbar
     drawrect(x, y, 32, 256+16, 0x777777);
     
@@ -160,6 +252,44 @@ int slider(int id, int x, int y, int max, int &value)
     {
         drawrect(x+8, y+8 + ypos, 16, 16, 0xaaaaaa);
     }
+    
+    // If we have keyboard focus, we'll need to process the keys
+    if (uistate.kbditem == id)
+    {
+        switch (uistate.keyentered)
+        {
+            case SDLK_TAB:
+                // If tab is pressed, lose keyboard focus.
+                // Next widget will grab the focus.
+                uistate.kbditem = 0;
+                // If shift was also pressed, we want to move focus
+                // to the previous widget instead.
+                if (uistate.keymod & KMOD_SHIFT)
+                    uistate.kbditem = uistate.lastwidget;
+                // Also clear the key so that next widget
+                // won't process it
+                uistate.keyentered = 0;
+                break;
+            case SDLK_UP:
+                // Slide slider up (if not at zero)
+                if (value > 0)
+                {
+                    value--;
+                    return 1;
+                }
+                break;
+            case SDLK_DOWN:
+                // Slide slider down (if not at max)
+                if (value < max)
+                {
+                    value++;
+                    return 1;
+                }
+                break;
+        }
+    }
+    
+    uistate.lastwidget = id;
     
     // Update widget value
     if (uistate.activeitem == id)
@@ -178,10 +308,96 @@ int slider(int id, int x, int y, int max, int &value)
     return 0;
 }
 
+int textfield(int id, int x, int y, char *buffer)
+{
+    int len = strlen(buffer);
+    int changed = 0;
+    
+    // Check for hotness
+    if (regionhit(x-4, y-4, 30*14+8, 24+8))
+    {
+        uistate.hotitem = id;
+        if (uistate.activeitem == 0 && uistate.mousedown)
+            uistate.activeitem = id;
+    }
+    
+    // If no widget has keyboard focus, take it
+    if (uistate.kbditem == 0)
+        uistate.kbditem = id;
+    
+    // If we have keyboard focus, show it
+    if (uistate.kbditem == id)
+        drawrect(x-6, y-6, 30*14+12, 24+12, 0xff0000);
+    
+    // Render the text field
+    if (uistate.activeitem == id || uistate.hotitem == id)
+    {
+        drawrect(x-4, y-4, 30*14+8, 24+8, 0xaaaaaa);
+    }
+    else
+    {
+        drawrect(x-4, y-4, 30*14+8, 24+8, 0x777777);
+    }
+    
+    drawstring(buffer,x,y);
+    
+    // Render cursor if we have keyboard focus
+    if (uistate.kbditem == id && (SDL_GetTicks() >> 8) & 1)
+        drawstring("_",x + len * 14, y);
+    
+    // If we have keyboard focus, we'll need to process the keys
+    if (uistate.kbditem == id)
+    {
+        switch (uistate.keyentered)
+        {
+            case SDLK_TAB:
+                // If tab is pressed, lose keyboard focus.
+                // Next widget will grab the focus.
+                uistate.kbditem = 0;
+                // If shift was also pressed, we want to move focus
+                // to the previous widget instead.
+                if (uistate.keymod & KMOD_SHIFT)
+                    uistate.kbditem = uistate.lastwidget;
+                // Also clear the key so that next widget
+                // won't process it
+                uistate.keyentered = 0;
+                break;
+            case SDLK_BACKSPACE:
+                if (len > 0)
+                {
+                    len--;
+                    buffer[len] = 0;
+                    changed = 1;
+                }
+                break;
+        }
+        if (uistate.keychar >= 32 && uistate.keychar < 127 && len < 30)
+        {
+            buffer[len] = uistate.keychar;
+            len++;
+            buffer[len] = 0;
+            changed = 1;
+        }
+    }
+    
+    // If button is hot and active, but mouse button is not
+    // down, the user must have clicked the widget; give it 
+    // keyboard focus.
+    if (uistate.mousedown == 0 && 
+        uistate.hotitem == id && 
+        uistate.activeitem == id)
+        uistate.kbditem = id;
+    
+    uistate.lastwidget = id;
+    
+    return changed;
+}
+
 // Rendering function
 void render()
 {
-    static int bgcolor = 0x770000ff;
+    static int bgcolor = 0x770000;
+    static char sometext[80] = "Some text";
     
     // Set render color to red ( background will be rendered in this color )
     SDL_SetRenderDrawColor( _renderer, 255, 0, 0, 255 );
@@ -205,6 +421,8 @@ void render()
     if (button(GEN_ID,150,150))
         exit(0);
     
+    textfield(GEN_ID,50,250,sometext);
+    
     int slidervalue = bgcolor & 0xff;
     if (slider(GEN_ID, 500, 40, 255, slidervalue))
     {
@@ -224,6 +442,7 @@ void render()
     }
     
     imgui_finish();
+    
     
     SDL_RenderPresent(_renderer);
     
@@ -257,19 +476,36 @@ int main () {
         king::utils::logSDLError(std::cout, "CreateRenderer");
     }
     
+    SDL_Surface *temp = SDL_LoadBMP("font14x24.bmp");
+    gFont = SDL_CreateTextureFromSurface(_renderer, temp);
+    SDL_FreeSurface(temp);
+    
+    
+
+    
     SDL_Event e;
     bool isRunning = true;
     while (isRunning){
         
         while (SDL_PollEvent(&e)){
+           
             if (e.type == SDL_KEYUP){
                 if (e.key.keysym.sym == SDLK_ESCAPE) {
                     isRunning = false;
                     break;
                 }
             }
+            else if (e.type == SDL_KEYDOWN) {
+                // If a key is pressed, report it to the widgets
+                uistate.keyentered = e.key.keysym.sym;
+                uistate.keymod = e.key.keysym.mod;
+                // if key is ASCII, accept it as character input
+                if ((e.key.keysym.sym & 0xFF80) == 0)
+                    uistate.keychar = e.key.keysym.sym & 0x7f;
+            }
             
-            if (e.type == SDL_MOUSEMOTION)
+            
+            else if (e.type == SDL_MOUSEMOTION)
             {
                 uistate.mousex = e.motion.x;
                 uistate.mousey = e.motion.y;

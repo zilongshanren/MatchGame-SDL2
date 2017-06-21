@@ -44,6 +44,7 @@
 		29F434211EFA5A1900A1417C /* IMGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29F434201EFA5A1900A1417C /* IMGUI.cpp */; };
 		29F434221EFA5A7200A1417C /* Utils.h in Sources */ = {isa = PBXBuildFile; fileRef = 29A2DCBC1C8A742D0050DEC9 /* Utils.h */; };
 		29F434231EFA5A7700A1417C /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 29A2DCC31C8A7F600050DEC9 /* Utils.cpp */; };
+		29F434261EFA738B00A1417C /* font14x24.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 29F434251EFA738B00A1417C /* font14x24.bmp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +94,7 @@
 		29F4341E1EFA59EE00A1417C /* IMGUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IMGUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F4341F1EFA59EF00A1417C /* FollowMatchKing copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "FollowMatchKing copy-Info.plist"; path = "/Users/guanghui/Github/MatchGame-SDL2/FollowMatchKing copy-Info.plist"; sourceTree = "<absolute>"; };
 		29F434201EFA5A1900A1417C /* IMGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IMGUI.cpp; path = FollowMatchKing/IMGUI.cpp; sourceTree = "<group>"; };
+		29F434251EFA738B00A1417C /* font14x24.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; name = font14x24.bmp; path = FollowMatchKing/res/font14x24.bmp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 		29A6DFDC1C87FD3E00EE672F = {
 			isa = PBXGroup;
 			children = (
+				29F434251EFA738B00A1417C /* font14x24.bmp */,
 				29F434241EFA5A7C00A1417C /* IMGUI */,
 				29A2DCC01C8A75860050DEC9 /* frameworks */,
 				29A6DFE71C87FD3F00EE672F /* FollowMatchKing */,
@@ -356,6 +359,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29F434261EFA738B00A1417C /* font14x24.bmp in Resources */,
 				29F434141EFA59EE00A1417C /* Green.png in Resources */,
 				29F434151EFA59EE00A1417C /* BackGround.jpg in Resources */,
 				29F434161EFA59EE00A1417C /* Blue.png in Resources */,
