@@ -5,6 +5,7 @@
 //  Created by guanghui on 6/21/17.
 //  Copyright © 2017 guanghui. All rights reserved.
 //
+//tutorials: http://sol.gfxile.net/imgui/ch07.html
 
 #include <SDL2/SDL.h>
 #include "Utils.h"
@@ -342,7 +343,9 @@ int textfield(int id, int x, int y, char *buffer)
     drawstring(buffer,x,y);
     
     // Render cursor if we have keyboard focus
-    if (uistate.kbditem == id && (SDL_GetTicks() >> 8) & 1)
+    Uint32 tick = (SDL_GetTicks() >> 8);
+//    cout<<"tick = " << tick << endl;
+    if (uistate.kbditem == id &&  tick & 1)
         drawstring("_",x + len * 14, y);
     
     // If we have keyboard focus, we'll need to process the keys
